@@ -21,7 +21,9 @@ const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
   try {
+
     await signInWithPopup(auth, googleProvider);
+    
   } catch (err) {
     console.error(err);
   }

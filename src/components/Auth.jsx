@@ -1,18 +1,25 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, signInWithGoogle, signOutUser } from "../config/firebase";
+import { auth, signInWithGoogle } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const [user, loading] = useAuthState(auth);
-
+  const navigate = useNavigate();
+  if (user !== null) {
+    navigate("/dashboard");
+  }
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {user === null && <button onClick={signInWithGoogle}> Sign In</button>}
-      {user !== null && (
-        <>
-          <p>Welcome {user.displayName}</p>
-          <button onClick={signOutUser}> Sign Out</button>
-        </>
+      {user === null && (
+        <button
+          onClick={async () => {
+            await signInWithGoogle();
+            navigate("/homePage");
+          }}
+        >
+          Sign In
+        </button>
       )}
     </div>
   );

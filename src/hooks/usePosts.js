@@ -27,15 +27,15 @@ function usePosts() {
       off(postsRef);
     };
   }, []);
+
   const addPost = async (post) => {
     const newPostRef = push(ref(db, "posts"));
-    await set(newPostRef, { ...post, uid: user.uid });
-
+    await set(newPostRef,post );
   };
 
   const editPost = async (post, postId) => {
     const editRef = ref(db, `posts/${postId}`);
-    await set(editRef, { ...post, uid: user.uid });
+    await set(editRef, post);
   };
   const deletePost = async (postId) => {
     const deleteRef = ref(db, `posts/${postId}`);
